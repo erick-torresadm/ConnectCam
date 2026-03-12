@@ -54,14 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData.entries());
+            const service = document.getElementById('service').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
             
-            console.log('Formulário enviado:', data);
+            const phoneNumber = '5511960657174';
+            
+            let text = `*Olá! Gostaria de mais informações sobre:*\n\n`;
+            text += `📋 *Serviço:* ${service}\n`;
+            text += `📱 *WhatsApp:* ${phone}\n`;
+            if (message) {
+                text += `\n💬 *Mensagem:* ${message}`;
+            }
+            
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+            
+            window.open(whatsappUrl, '_blank');
             
             const btn = contactForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<span>✓</span> Enviado!';
+            btn.innerHTML = '<span>✓</span> Redirecionando...';
             btn.style.background = 'linear-gradient(135deg, #22c55e, #10b981)';
             
             setTimeout(() => {
@@ -69,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.style.background = '';
                 contactForm.reset();
             }, 3000);
-            
-            alert('Obrigado! Em breve um de nossos especialistas entrará em contato.');
         });
     }
 
@@ -173,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const heroCard = document.querySelector('.hero-card');
     if (heroCard) {
-        document.addEventListener('mousemove', (e) => {
+        heroCard.addEventListener('mousemove', (e) => {
             const rect = heroCard.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -181,14 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
+            const rotateX = Math.max(-3, Math.min(3, (y - centerY) / 30));
+            const rotateY = Math.max(-3, Math.min(3, (centerX - x) / 30));
             
             heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
         
         heroCard.addEventListener('mouseleave', () => {
-            heroCard.style.transform = 'perspective(1000px) rotateY(-5deg) rotateX(5deg)';
+            heroCard.style.transform = 'perspective(1000px) rotateY(-3deg) rotateX(2deg)';
         });
     }
 
