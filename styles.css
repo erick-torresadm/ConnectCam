@@ -594,6 +594,8 @@ input, select, textarea {
     border-radius: var(--radius-sm);
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
 }
 
 .cam::after {
