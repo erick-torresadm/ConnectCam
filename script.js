@@ -283,4 +283,171 @@ document.addEventListener('DOMContentLoaded', () => {
             input.parentElement.classList.remove('focused');
         });
     });
+
+    // Carrossel de imagens nas câmeras
+    const cameraCams = document.querySelectorAll('.cam[data-images]');
+    cameraCams.forEach((cam, index) => {
+        const images = JSON.parse(cam.dataset.images);
+        let currentIndex = 0;
+        
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            cam.style.backgroundImage = `url('${images[currentIndex]}')`;
+        }, 3000 + (index * 500));
+        
+        // Popup ao clicar
+        cam.style.cursor = 'pointer';
+        cam.addEventListener('click', () => {
+            showImagePopup(images, currentIndex);
+        });
+    });
+
+    // Popup de imagens
+    function showImagePopup(images, startIndex) {
+        const popup = document.createElement('div');
+        popup.className = 'image-popup';
+        popup.innerHTML = `
+            <div class="popup-overlay"></div>
+            <div class="popup-content">
+                <button class="popup-close">&times;</button>
+                <div class="popup-gallery">
+                    ${images.map((img, i) => `
+                        <div class="popup-image ${i === startIndex ? 'active' : ''}">
+                            <img src="${img}" alt="Imagem ${i + 1}">
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="popup-nav prev">&#10094;</button>
+                <button class="popup-nav next">&#10095;</button>
+                <div class="popup-dots">
+                    ${images.map((_, i) => `<span class="dot ${i === startIndex ? 'active' : ''}" data-index="${i}"></span>`).join('')}
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(popup);
+        document.body.style.overflow = 'hidden';
+        
+        let currentIndex = startIndex;
+        
+        function showImage(index) {
+            currentIndex = index;
+            popup.querySelectorAll('.popup-image').forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+            popup.querySelectorAll('.popup-dots .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        popup.querySelector('.popup-close').addEventListener('click', () => {
+            popup.remove();
+            document.body.style.overflow = '';
+        });
+        
+        popup.querySelector('.popup-overlay').addEventListener('click', () => {
+            popup.remove();
+            document.body.style.overflow = '';
+        });
+        
+        popup.querySelector('.popup-nav.prev').addEventListener('click', () => {
+            showImage((currentIndex - 1 + images.length) % images.length);
+        });
+        
+        popup.querySelector('.popup-nav.next').addEventListener('click', () => {
+            showImage((currentIndex + 1) % images.length);
+        });
+        
+        popup.querySelectorAll('.popup-dots .dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                showImage(parseInt(dot.dataset.index));
+            });
+        });
+    }
+
+    // Estilos do popup
+    const popupStyles = document.createElement('style');
+    popupStyles.textContent = `
+        .image-popup {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+        }
+        .popup-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .popup-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .popup-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            max-width: 80vw;
+        }
+        .popup-image {
+            display: none;
+            scroll-snap-align: center;
+        }
+        .popup-image.active {
+            display: block;
+        }
+        .popup-image img {
+            max-width: 80vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .popup-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(99, 102, 241, 0.8);
+            border: none;
+            color: white;
+            font-size: 24px;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .popup-nav.prev { left: -60px; }
+        .popup-nav.next { right: -60px; }
+        .popup-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .popup-dots .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .popup-dots .dot.active {
+            background: var(--primary);
+        }
+    `;
+    document.head.appendChild(popupStyles);
 });
