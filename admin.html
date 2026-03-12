@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - ConnectCam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <span class="admin-logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 7l-7 5 7 5V7z"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                </span>
+                <span>ConnectCam</span>
+            </div>
+            <nav class="admin-nav">
+                <a href="#" class="active" data-tab="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" data-tab="config">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    Configurações
+                </a>
+                <a href="#" data-tab="galeria">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    Galeria
+                </a>
+                <a href="#" data-tab="blog">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    Blog
+                </a>
+                <a href="index.html" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    Ver Site
+                </a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Painel Admin</h1>
+                <button class="btn-save" onclick="saveAllChanges()">Salvar Alterações</button>
+            </header>
+
+            <div class="admin-content">
+                <section class="admin-tab active" id="dashboard">
+                    <div class="dashboard-grid">
+                        <div class="dash-card">
+                            <h3>Visitas Hoje</h3>
+                            <div class="dash-number">0</div>
+                        </div>
+                        <div class="dash-card">
+                            <h3>Orçamentos</h3>
+                            <div class="dash-number">0</div>
+                        </div>
+                        <div class="dash-card">
+                            <h3>Projetos</h3>
+                            <div class="dash-number">6</div>
+                        </div>
+                        <div class="dash-card">
+                            <h3>Artigos Blog</h3>
+                            <div class="dash-number">3</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-tab" id="config">
+                    <div class="form-section">
+                        <h2>Configurações do Site</h2>
+                        <form id="configForm">
+                            <div class="form-group">
+                                <label>Nome da Empresa</label>
+                                <input type="text" id="companyName" value="ConnectCam" placeholder="Nome da empresa">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefone</label>
+                                <input type="tel" id="companyPhone" value="(00) 00000-0000" placeholder="Telefone">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="companyEmail" value="contato@connectcam.com.br" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label>Logo (URL ou Base64)</label>
+                                <textarea id="companyLogo" rows="3" placeholder="Cole o código SVG ou URL da imagem"></textarea>
+                                <small>Ou use o editor abaixo:</small>
+                                <div class="logo-preview" id="logoPreview">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 7l-7 5 7 5V7z"/>
+                                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Cor Principal</label>
+                                <input type="color" id="primaryColor" value="#6366f1">
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="admin-tab" id="galeria">
+                    <div class="form-section">
+                        <h2>Gerenciar Galeria</h2>
+                        <div class="gallery-manager">
+                            <div class="gallery-list" id="galleryList">
+                            </div>
+                            <div class="add-form">
+                                <h3>Adicionar Novo Projeto</h3>
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" id="galleryTitle" placeholder="Título do projeto">
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição</label>
+                                    <input type="text" id="galleryDesc" placeholder="Descrição breve">
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <select id="galleryCategory">
+                                        <option value="cameras">Câmeras</option>
+                                        <option value="controle-acesso">Controle de Acesso</option>
+                                        <option value="alarme">Alarme</option>
+                                        <option value="automacao">Automação</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagem (URL)</label>
+                                    <input type="text" id="galleryImage" placeholder="URL da imagem">
+                                </div>
+                                <button type="button" class="btn-add" onclick="addGalleryItem()">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-tab" id="blog">
+                    <div class="form-section">
+                        <h2>Gerenciar Blog</h2>
+                        <div class="blog-manager">
+                            <div class="blog-list" id="blogList">
+                            </div>
+                            <div class="add-form">
+                                <h3>Novo Artigo</h3>
+                                <div class="form-group">
+                                    <label>Título</label>
+                                    <input type="text" id="blogTitle" placeholder="Título do artigo">
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <select id="blogCategory">
+                                        <option value="tecnologia">Tecnologia</option>
+                                        <option value="seguranca">Segurança</option>
+                                        <option value="controle-acesso">Controle de Acesso</option>
+                                        <option value="dicas">Dicas</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resumo</label>
+                                    <textarea id="blogExcerpt" rows="3" placeholder="Resumo do artigo"></textarea>
+                                </div>
+                                <button type="button" class="btn-add" onclick="addBlogPost()">Publicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
