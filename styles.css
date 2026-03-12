@@ -835,9 +835,10 @@ input, select, textarea {
 
 .marquee-content {
     display: flex;
-    animation: marquee 20s linear infinite;
+    animation: marquee 30s linear infinite;
     gap: 80px;
     align-items: center;
+    width: max-content;
 }
 
 @keyframes marquee {
@@ -846,7 +847,7 @@ input, select, textarea {
 }
 
 .brand-item {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 800;
     color: var(--white);
     white-space: nowrap;
@@ -856,15 +857,17 @@ input, select, textarea {
     display: flex;
     align-items: center;
     gap: 12px;
+    letter-spacing: 1px;
 }
 
 .brand-item::before {
     content: '';
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: var(--primary);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--primary);
+    box-shadow: 0 0 12px var(--primary), 0 0 20px var(--primary-light);
+    flex-shrink: 0;
 }
 
 .brand-item:hover {
@@ -1047,20 +1050,17 @@ input, select, textarea {
     position: relative;
     width: 100%;
     max-width: 480px;
-    aspect-ratio: 16/10;
     border-radius: var(--radius-xl);
     box-shadow: 
         0 30px 60px -15px rgba(0, 0, 0, 0.4),
         0 0 80px rgba(99, 102, 241, 0.3);
     overflow: hidden;
+    background: var(--background);
 }
 
 .about-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: var(--radius-xl);
+    height: auto;
     display: block;
 }
 
